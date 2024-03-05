@@ -6,9 +6,7 @@ class ProductFilter(FilterSet):
    class Meta:
        model = Product
        fields = {
-           'name': ['icontains'],
-           'quantity': ['gt'],
-           'price': ['lt','gt',],
+           'category': ['exact'],
        }
 
 

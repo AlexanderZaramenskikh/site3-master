@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sign',
     'protect',
     'allauth',
     'allauth.account',
@@ -158,12 +157,10 @@ STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
-EMAIL_HOST = 'smtp.yandex.ru'  # адрес сервера Яндекс-почты для всех один и тот же
-EMAIL_PORT = 465  # порт smtp сервера тоже одинаковый
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
 EMAIL_HOST_USER = 'dadvzhvda'
-EMAIL_HOST_PASSWORD = 'Lolkalo'
-EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
-
-DEFAULT_FROM_EMAIL = 'dadvzhvda@yandex.ru'
+EMAIL_HOST_PASSWORD = 'uzydqoavirrzdyrs'
+EMAIL_USE_SSL = True
 
 SERVER_EMAIL = 'dadvzhvda@yandex.ru'

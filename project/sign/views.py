@@ -1,27 +1,35 @@
-from django.shortcuts import render
-from django.contrib.auth.models import User
-from django.views.generic.edit import CreateView, View
+from django.contrib.auth.models import User, Group
+from django.views.generic.edit import CreateView
 from .models import BaseRegisterForm
+from .models import Author
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import TemplateView
 from django.shortcuts import redirect
-from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 
-class MyView(PermissionRequiredMixin, View):
-    permission_required = ('news.add_post',
-                           'news.change_post')
+
 class BaseRegisterView(CreateView):
     model = User
     form_class = BaseRegisterForm
-    success_url = '/'
+    success_url = '/ '
+
+
+class PersonalClassView(LoginRequiredMixin, TemplateView):
+    template_name = 'protect/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(f"self.request = {self.request.user.id}")
+        # context['is_not_subscriber'] = self.request.user not in self.category.subscribers.all()
+        # context['category'] = self.category
+        return context
+
 
 @login_required
 def upgrade_me(request):
     user = request.user
-    premium_group = Group.objects.get(name='author')
-    if not request.user.groups.filter(name='author').exists():
+    premium_group = Group.objects.get(name='authors')
+    if not request.user.groups.filter(name='authors').exists():
         premium_group.user_set.add(user)
-    return redirect('/')
-
-class AddProduct(PermissionRequiredMixin, CreateView):
-    permission_required = ('news.add_post','news.change_post')
+        Author.objects.create(user=user)
+    return redirect('to_many_post')

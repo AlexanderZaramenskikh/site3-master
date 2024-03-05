@@ -13,7 +13,14 @@
         </library>
       </libraries>
     </data-source>
-    <data-source source="LOCAL" name="db.sqlite3" uuid="550fb854-9701-4cd4-a5a4-b745b8ea4a29">
+    <data-source source="LOCAL" name="db.sqlite3" uuid="69b02b26-b0fd-4c5a-9d7d-6aa868fc1d52">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/project/db.sqlite3</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="db.sqlite3 [2]" uuid="3ae6bcce-b7b5-4942-9c4d-253ab0067d8f">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>

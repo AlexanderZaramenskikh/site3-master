@@ -1,15 +1,13 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django import forms
 from allauth.account.forms import SignupForm
-from django.contrib.auth.models import Group
-
 
 
 class BaseRegisterForm(UserCreationForm):
-    email = forms.EmailField(label = "Email")
-    first_name = forms.CharField(label = "Имя")
-    last_name = forms.CharField(label = "Фамилия")
+    email = forms.EmailField(label="Email")
+    first_name = forms.CharField(label="Имя")
+    last_name = forms.CharField(label="Фамилия")
 
     class Meta:
         model = User

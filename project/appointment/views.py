@@ -2,8 +2,9 @@ from django.shortcuts import render, reverse, redirect
 from django.views import View
 from django.core.mail import send_mail
 from datetime import datetime
-
 from .models import Appointment
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 
 class AppointmentView(View):
@@ -18,11 +19,20 @@ class AppointmentView(View):
         )
         appointment.save()
 
-        send_mail(
-            subject=f'{appointment.client_name} {appointment.date.strftime("%Y-%M-%d")}',
-            message=appointment.message,
-            from_email='dadvzhvda@yandex.ru',
-            recipient_list=[]
+        html_content = render_to_string(
+            'appointment_created.html',
+            {
+                'appointment': appointment,
+            }
         )
+
+        msg = EmailMultiAlternatives(
+            subject=f'{appointment.client_name} {appointment.date.strftime("%Y-%M-%d")}',
+            body=appointment.message,  # это то же, что и message
+            from_email='dadvzhvda@yandex.ru',
+            to=['aleksandrza01@gmail.com'],  # это то же, что и recipients_list
+        )
+        msg.attach_alternative(html_content, "text/html")  # добавляем html
+        msg.send()  # отсылаем
 
         return redirect('appointments:make_appointment')
